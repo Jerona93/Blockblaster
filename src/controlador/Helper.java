@@ -19,7 +19,7 @@ public class Helper {
 				int id = resultados.getInt("id");
 				String user = resultados.getString("user");
 				String password = resultados.getString("password");
-				arraylist.add(new User(id, user, password));
+				arraylist.add(new User(id, user, password, id, id, id));
 			}
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Error en la consulta de usuarios");

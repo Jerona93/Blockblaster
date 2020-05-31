@@ -15,8 +15,11 @@ public class Users {
 		return usuarios;
 	}
 	
-	public boolean checkUserAndPass(String user, String password) {
+	public boolean checkUserAndPass(String user, String password, int saldo, int PelisAlquiladas) {
+		
+
 		ResultSet usuarioBD = conexion.EjecutarSentencia("SELECT * FROM usuarios WHERE user='"+user+"' AND password='"+password+"'");
+			
 		
 		try {
 			return usuarioBD.next();
@@ -25,18 +28,22 @@ public class Users {
 		}
 	}
 	
+
 	
-	
-	public void insertUser(String user, String password) {
-		conexion.EjecutarUpdate("INSERT INTO usuarios ( user, password) VALUES ( '"+user+"', '"+password+"');");
+	public void insertUser(String user, String password,String telefono) {
+		conexion.EjecutarUpdate("INSERT INTO usuarios ( user, password, telefono) VALUES ( '"+user+"', '"+password+"', '"+telefono+"');");
 	}
 	
-	public void updateUser(String user, String password) {
-		conexion.EjecutarUpdate("UPDATE usuarios SET password='"+password+"' WHERE user='"+user+"');");
+	public void updateUser(String user, String password, String telefono) {
+		conexion.EjecutarUpdate("UPDATE usuarios SET password='"+password+"' WHERE user='"+user+"', '"+telefono+"');");
 	}
 	
 	public void deleteUser(String user) {
 		conexion.EjecutarUpdate("DELETE FROM usuarios WHERE user = '"+user+"';");
+	}
+	
+	public void actualizarUser(String user, String telefono) {
+		conexion.EjecutarUpdate("UPDATE FROM usuarios WHERE user = '"+user+"'AND telefono='"+telefono+"';");
 	}
 	
 }

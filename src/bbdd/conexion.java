@@ -7,10 +7,6 @@ package bbdd;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Gabri
- */
 public class conexion {
 	
 	static String timeZone = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -35,6 +31,9 @@ public class conexion {
             e.printStackTrace();
         }
     }
+    
+   
+    
     
     public static ResultSet EjecutarSentencia(String Sentencia){
         try {

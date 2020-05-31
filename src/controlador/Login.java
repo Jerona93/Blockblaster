@@ -2,29 +2,39 @@ package controlador;
 
 import java.util.ArrayList;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-
+import bbdd.conexion;
 import beans.User;
 
 public class Login { //Controladorr
 	
-	public void insertUser(String user, String password) {
-		new modelo.Users().insertUser(user,password);
+	public void insertUser(String user, String password,String telefono) {
+		new modelo.Users().insertUser(user,password, telefono);
 	}
 	
-	public void updateUser(String user, String password) {
-		new modelo.Users().insertUser(user,password);
+	public void updateUser(String user, String password, String telefono) {
+		new modelo.Users().insertUser(user,password,telefono);
 	}
 	
 	public void deleteUser(String user) {
 		new modelo.Users().deleteUser(user);
 	}
 	
+	
+	
 	public void checkUser(String user, String password) {
-		// Recoger los usuarios
-		boolean check = new modelo.Users().checkUserAndPass(user, password);
+		//Recoge los usuarios
+		boolean check = new modelo.Users().checkUserAndPass(user, password, 0, 0);
 		if(check) {
+			/*PRueba icono pantalla usuario correcto
+			Icon icono = (Icon) new ImageIcon(getClass().getResource("src/controlador/Blockblaster_logo_Marco.png")).getImage();
+			JOptionPane.showMessageDialog(null, "Usuario correcto","imagen_LOGO", JOptionPane.DEFAULT_OPTION,icono);
+			*/
+			
+
 			JOptionPane.showMessageDialog(null, "Usuario correcto");
 			new vista.Princi().setVisible(true); //PAra abrir la ventana principal
 

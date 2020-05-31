@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -12,20 +13,26 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+
+import bbdd.conexion;
+import beans.User;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Font;
+import javax.swing.JTable;
 
 public class Princi extends JFrame {
 
 	public JPanel panel;
-	private JTextField cajaTexto;
-	private JLabel saludo;
-	private JButton BotonSaludo;
+	private JButton BotonPagpelis;
+	private JButton BotonPerfil;
+	private JTable table;
 
 	public Princi() {
-		setSize(1000, 1000); // Tamaño de la ventana
-		setTitle("GUESS WHO"); // TITULO DE LA VENTANA(EL QUE SALE ARRIBA EN LA BARRA)
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/controlador/Blockblaster_logo_Marco.png")));
+		setSize(600, 400); // Tamaño de la ventana
+		setTitle("BlockBlaster"); // TITULO DE LA VENTANA(EL QUE SALE ARRIBA EN LA BARRA)
 
 		// setLocation(460, 200); //Establece posicion inicial de la ventana
 		// setBounds(460, 200, 500, 500); //Este parametro engloba el size y el
@@ -38,6 +45,7 @@ public class Princi extends JFrame {
 		iniciarComponentes(); // Llamamos al panel que creamos
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // Para que cierre el programa cuando le damos a la cruz
+		setResizable(false); // Para que no se pueda cambiar tamaño
 	}
 
 	private void iniciarComponentes() {
@@ -46,18 +54,14 @@ public class Princi extends JFrame {
 
 		colocarEtiquetas();
 
-		colocarBotonSaludoes();
-
-		colocarCajaTexto();
-		
-		colocarBotonVentanPerson();
-
+		colocarPagpelis();
+		colocarBperfil();
 
 	}
 
 	private void colocarPaneles() {
 		panel = new JPanel();
-		panel.setBackground(new Color(240, 255, 240));
+		panel.setBackground(new Color(46, 45, 45));
 
 		this.getContentPane().add(panel);
 
@@ -66,93 +70,78 @@ public class Princi extends JFrame {
 	}
 
 	private void colocarEtiquetas() {
+		String user = Login.userInput.getText();
+		// int saldo = User.getSaldo();
 
-		JLabel WELCOME = new JLabel("Welcome! ");
+		JLabel WELCOME = new JLabel("Bienvenido  " + user + ".");
+		WELCOME.setForeground(Color.WHITE);
 		WELCOME.setFont(new Font("Beirut", Font.PLAIN, 16));
-		WELCOME.setBounds(212, 111, 83, 16);
+		WELCOME.setBounds(385, 53, 224, 16);
 		panel.add(WELCOME);
 
 		JLabel LogoBlockBlaster = new JLabel("BlockBlasterLogoMarco");
-		LogoBlockBlaster.setBounds(86, 6, 320, 108);
+		LogoBlockBlaster.setBounds(43, 6, 320, 108);
 
 		ImageIcon Logo = new ImageIcon("Blockblaster_logo_Marco.png");
-		LogoBlockBlaster.setIcon(new ImageIcon(
-				Logo.getImage().getScaledInstance(LogoBlockBlaster.getWidth(), LogoBlockBlaster.getHeight(), Image.SCALE_SMOOTH)));
+		LogoBlockBlaster.setIcon(new ImageIcon(Logo.getImage().getScaledInstance(LogoBlockBlaster.getWidth(),LogoBlockBlaster.getHeight(), Image.SCALE_SMOOTH)));
 		panel.add(LogoBlockBlaster);
 
 	}
 
-	private void colocarCajaTexto() {
-		cajaTexto = new JTextField();
-		cajaTexto.setBounds(60, 240, 195, 26);
-		panel.add(cajaTexto);
-		cajaTexto.setColumns(10);
-	}
+	private void colocarBperfil() {
 
-	private void colocarBotonSaludoes() {
-		
-		//Boton para para el saludo
-		
-		BotonSaludo = new JButton("Ok!");
-		BotonSaludo.setBounds(252, 240, 83, 29);
-		panel.add(BotonSaludo);
-
-		saludo = new JLabel();
-		saludo.setFont(new Font("Beirut", Font.PLAIN, 14));
-		saludo.setBounds(60, 272, 370, 40);
-		panel.add(saludo);
-
-		// Agregando evento de tipo ActionListener
-
-		ActionListener oyenteDeAccion = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				saludo.setText("Hi "+ cajaTexto.getText() + ", how are you?");
+		BotonPerfil = new JButton("Perfil"); // Abre la Ventan2
+		BotonPerfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 			}
-		
-		};
-
-		BotonSaludo.addActionListener(oyenteDeAccion);
-
-	}
-	private void colocarBotonVentanPerson() {
-
-		BotonSaludo = new JButton("Go!"); // Abre la Ventan2
-		BotonSaludo.setFont(new Font("Avenir Next Condensed", Font.PLAIN, 24));
-		BotonSaludo.setBounds(347, 335, 83, 40);
-		panel.add(BotonSaludo);
-		
-		JLabel lblDoYouWant = new JLabel("Do you want to see the characters?");
-		lblDoYouWant.setFont(new Font("Beirut", Font.PLAIN, 13));
-		lblDoYouWant.setBounds(103, 351, 232, 16);
-		panel.add(lblDoYouWant);
-		
-		JLabel lblWhatsYourName = new JLabel("What's your name?");
-		lblWhatsYourName.setBounds(62, 212, 124, 16);
-		panel.add(lblWhatsYourName);
-		
-		Login abrir = new Login(); // se crea la variable para abrir la otra ventana
+		});
+		BotonPerfil.setFont(new Font("Avenir Next Condensed", Font.PLAIN, 20));
+		BotonPerfil.setBounds(492, 81, 79, 29);
+		panel.add(BotonPerfil);
+		VerPerfil abrir = new VerPerfil(); // se crea la variable
 
 		// El mouse listener con el clicked, se hace para que cuando pulses haga lo que
 		// esté dentro del codigo
-		BotonSaludo.addMouseListener(new MouseAdapter() {
+		BotonPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				abrir.setVisible(true); // Esto abre VentanPerson
-
+				//dispose(); // Cierra la ventana actual al abrir la de abajo
+				abrir.setVisible(true); // Esto abre Ventan2
 			}
+
 		});
 
-		this.setVisible(false); // para que se cierre Ventan cuando se pulse el boton de abrir Ventan2
+		// dispose(); // para cerrar un frame
+		// this.setVisible(false); // para que ocultar un frame
 
 	}
+
+	private void colocarPagpelis() {
+
+		BotonPagpelis = new JButton("Peliculas"); // Abre la Ventan2
+		BotonPagpelis.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		BotonPagpelis.setFont(new Font("Avenir Next Condensed", Font.PLAIN, 20));
+		BotonPagpelis.setBounds(43, 188, 108, 35);
+		panel.add(BotonPagpelis);
+		Pagpelis abrir = new Pagpelis(); // se crea la variable
+
+		// El mouse listener con el clicked, se hace para que cuando pulses haga lo que
+		// esté dentro del codigo
+		BotonPagpelis.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//dispose(); // Cierra la ventana actual al abrir la de abajo
+				abrir.setVisible(true); // Esto abre Ventan2
+			}
+
+		});
+
+		// dispose(); // para cerrar un frame
+		// this.setVisible(false); // para que ocultar un frame
+
+	}
+
 }
-
-
-
-
-
-
-
-
